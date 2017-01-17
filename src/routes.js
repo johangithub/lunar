@@ -1,14 +1,10 @@
 import Home from './components/Home.vue'
 import About from './components/About.vue'
-import Hello from './components/Hello.vue'
+import NoPage from './components/NoPage.vue'
 
 //Officer Module
 import Officer from './components/officer/Officer.vue'
-import OfficerDetail from './components/officer/officer/OfficerDetail.vue'
-import OfficerPersonal from './components/officer/officer/OfficerPersonal.vue'
-import OfficerEducationTraining from './components/officer/officer/OfficerEducationTraining.vue'
-import OfficerDutyHistory from './components/officer/officer/OfficerDutyHistory.vue'
-import OfficerRated from './components/officer/officer/OfficerRated.vue'
+
 
 
 import OfficerAuth from './components/officer/OfficerAuth.vue'
@@ -30,15 +26,9 @@ import RecruitingSQ from './components/recruit/RecruitingSQ.vue'
 
 export const routes = [
 	{path: '', component: Home},
-	{path: '/hello', component: Hello},
+	{path: '/404', component: NoPage},
 	{path: '/about', component: About},
-	{path: '/officer', component: Officer, children: [
-		{path: ':id', component: OfficerDetail},
-		{path: ':id/personal', component: OfficerPersonal},
-		{path: ':id/education_training', component: OfficerEducationTraining},
-		{path: ':id/duty_history', component: OfficerDutyHistory},
-		{path: ':id/rated', component: OfficerRated},
-		]},
+	{path: '/officer', component: Officer},
 	{path: '/officer_cfh', component: OfficerCFH},
 	{path: '/officer_authasgn', component: AuthAsgn},
 	{path: '/officer_auth', component: OfficerAuth},

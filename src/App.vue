@@ -1,6 +1,11 @@
 <template>
   <div id="wrapper" :class="{toggled: !sidebarClosed}">
-  <div :class="overlay"></div>
+  <transition 
+  enter-active-class="animated fadeIn"
+  leave-active-class="animated fadeOut"> 
+  <div class="overlay" v-if="overlay"
+  ></div>
+  </transition>
     <app-hamburger></app-hamburger>
     <app-sidebar></app-sidebar>
     <div id="page-content-wrapper">
@@ -24,21 +29,19 @@ export default {
   },
   computed: {
     sidebarClosed() {
-      return this.$store.state.sidebarClosed
+      return this.$store.getters.getSidebarClosed
     },
     
     overlay() {
-      return this.$store.state.sidebarClosed ? '' : 'overlay'
+      return this.$store.getters.getSidebarClosed ? false : true
     }
   }
 }
 </script>
 
 <style>
-@import "http://designmodo.github.io/Flat-UI/dist/css/flat-ui.min.css";
-@import "https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css";
-@import "https://daneden.github.io/animate.css/animate.min.css";
-
+@import "../static/css/font-awesome.min.css";
+@import "../static/css/animate.css";
 /*-------------------------------*/
 /*           VARIABLES           */
 /*-------------------------------*/
@@ -49,9 +52,9 @@ body {
 body,
 html {
   height: 100%;
+  width: 100%;
   background-color: #f0f0f0;
 }
-
 
 #wrapper {
   -moz-transition: all 0.5s ease;
@@ -68,7 +71,6 @@ html {
 }
 #wrapper.toggled #page-content-wrapper {
   margin-right: -220px;
-  position: absolute;
 }
 
 /*-------------------------------*/
@@ -85,5 +87,9 @@ html {
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.4);
   z-index: 1;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
 }
 </style>

@@ -46,7 +46,8 @@ module.exports = {
       },
       {
         test: /\.json$/,
-        loader: 'json'
+        loader: 'json',
+        exclude: projectRoot+'data/'
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
