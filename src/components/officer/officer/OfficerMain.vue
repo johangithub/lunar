@@ -80,9 +80,70 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="active" v-for="dates in serviceDates">
-                        <td>{{dates.category}}</td>
-                        <td :class="dates.category">{{dates.date | addDash}}</td>
+
+                    <!-- Total Active Federal Military Service Date -->
+                    <tr class="active">
+                        <td>TAFMSD</td>
+                        <td>{{serviceDates.TAFMSD | addDash}}</td>
+                    </tr>
+
+                    <!-- Total Active Federal Commissioned Service Date -->
+                    <tr class="active">
+                        <td>TAFCSD</td>
+                        <td>{{serviceDates.TAFCSD | addDash}}</td>
+                    </tr>
+
+                    <!-- Entered Active Duty -->
+                    <tr class="active">
+                        <td>EAD</td>
+                        <td>{{serviceDates.EAD | addDash}}</td>
+                    </tr>
+
+                    <tr class="active" v-show="serviceDates.PAYDATE">
+                        <td>PAYDATE</td>
+                        <td>{{serviceDates.PAYDATE | addDash}}</td>
+                    </tr>
+
+                    <!-- Date of Rank -->
+                    <tr class="active">
+                        <td>DOR</td>
+                        <td>{{serviceDates.DOR | addDash}}</td>
+                    </tr>
+
+                    <!-- Overseas Duty Selection Date -->
+                    <tr class="active">
+                        <td>ODSD</td>
+                        <td>{{serviceDates.ODSD | addDash}}</td>
+                    </tr>
+
+                    <!-- Short Tour Return Date -->
+                    <tr class="active">
+                        <td>STRD</td>
+                        <td>{{serviceDates.STRD | addDash}}</td>
+                    </tr>
+
+                    <!-- Date Departed Last Duty Station -->
+                    <tr class="active">
+                        <td>DDLDS</td>
+                        <td>{{serviceDates.DDLDS | addDash}}</td>
+                    </tr>
+
+                    <!-- Date Arrived Station -->
+                    <tr class="active">
+                        <td>DAS</td>
+                        <td>{{serviceDates.DAS | addDash}}</td>
+                    </tr>
+
+                    <!-- Date Eligible for Return from Overseas -->
+                    <tr class="active" v-show="serviceDates.DEROS">
+                        <td>DEROS</td>
+                        <td>{{serviceDates.DEROS | addDash}}</td>
+                    </tr>
+
+                    <!-- Date of Separation -->
+                    <tr class="active">
+                        <td>DOS</td>
+                        <td :style="{color: dosColor}">{{serviceDates.DOS | addDash}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -162,18 +223,30 @@ export default{
     },
     computed: {
         serviceDates(){
-            let serviceDatesArray = []
             let varlist = ['TAFMSD','TAFCSD','EAD','PAYDATE','DOR','ODSD','STRD','DDLDS','DAS','DEROS','DOS']
-            for (let i=0;i<varlist.length;i++){
-                serviceDatesArray.push({category: varlist[i], date: this.data[varlist[i]]})
+            let serviceDates = {
+              TAFMSD: this.data.TAFMSD,
+              TAFCSD: this.data.TAFCSD,
+              EAD: this.data.EAD,
+              PAYDATE: this.data.PAYDATE,
+              DOR: this.data.DOR,
+              ODSD: this.data.ODSD,
+              STRD: this.data.STRD,
+              DDLDS: this.data.DDLDS,
+              DAS: this.data.DAS,
+              DEROS: this.data.DEROS,
+              DOS: this.data.DOS
             }
-            return serviceDatesArray
+            return serviceDates
         },
+        //For now, Flag anyone with DOS earlier than 2020
+        dosColor(){
+           if (this.data.DOS < 20200530) {
+            return 'red'
+           }
+        }
     },
     methods:{
-        dosStyle(date){
-            date
-        }
     },
     filters: {
         addDash: (date)=>{
